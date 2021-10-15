@@ -16,9 +16,7 @@ neko-script-bundler는 이런 문제들을 해결합니다.
   빌드하기:
   ```js
   node index.js
-  ```
-  빌드시 명령어 옵션을 줄 수 있습니다.
-  
+  ```  
   실시간 감시모드:
   ```js
   node index.js -w
