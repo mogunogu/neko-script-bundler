@@ -8,8 +8,9 @@ const { program } = require('commander');
 
 
 program
-.option('-a, --auto-restart', '테스트플레이 자동재시작')
-.option('-w, --watch', '파일변경감시')
+  .option('-a, --auto-restart', '테스트플레이 자동재시작')
+  .option('-w, --watch', '파일변경감시')
+  .option('-h, --help', '도움말')
 program.parse(process.argv);
 
 const options = program.opts();
@@ -58,7 +59,7 @@ if (options.watch) {
       console.clear()
       console.log("\u001b[34m  실시간 감시모드를 시작합니다!!\u001b[0m ( 종료하려면 : Ctrl + C )")
     })
-    .on('all',(_,path) => {
+    .on('all',(event,path) => {
       check(path)
       console.log("\u001b[34m  실시간 감시모드 실행중 . . . . . . \u001b[0m( 종료하려면 : Ctrl + C )")
     })
@@ -77,7 +78,22 @@ if (options.watch) {
       console.clear()
       console.log("\u001b[31m❌ 파일변경을 감지했습니다 : "+ path +"\u001b[0m"+ date());
     })
-} 
+}
+
+// -h command
+if (options.help) {
+  const text =
+    "\n\
+    \u001b[1m사용방법:\u001b[0m\n\
+    터미널에 node index.js [ 명령어 ] 입력\n\
+    \n\
+    \u001b[1m옵션:\u001b[0m\n\
+    -w, --watch                     실시간 감시모드입니다. src폴더 내에 변경된 파일을 자동으로 빌드해줍니다.\n\
+    -a, --auto-restart              테스트 플레이를 자동으로 재시작 해줍니다.\n\
+    "
+  console.log(text)
+} else {
   build();
+}
 
 
