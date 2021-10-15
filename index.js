@@ -14,8 +14,6 @@ program.parse(process.argv);
 
 const options = program.opts();
 
-
-
 const build = () => {
   const src_server = './src/ServerScripts/index.lua'
   const src_client = './src/Scripts/index.lua'
@@ -53,7 +51,6 @@ const build = () => {
 if (options.watch) {
   const watcher = chokidar.watch('./src/', { ignoreInitial: true });
   const date = () => "(\u001b[35m " + new Date().toLocaleTimeString() + " \u001b[0m)"
-  
   const changed = [];
   const check = (path) => {
     if (!changed.includes(path)) {
@@ -61,6 +58,7 @@ if (options.watch) {
     }
     console.log(`  현재까지 변경된 파일 : ${changed.length} 개 `)
   }
+
   watcher
     .on('ready', () => {
       console.clear()
