@@ -8,9 +8,10 @@
 neko-script-bundler는 이런 문제들을 해결합니다.
 
 ## 설치방법
-
-
-
+  ```js
+  git clone https://github.com/mogunogu/neko-script-bundler.git
+  npm install lua-bundler
+  ```
 ## 사용방법
 
   빌드하기:
