@@ -59,7 +59,7 @@ if (options.watch) {
       console.clear()
       console.log("\u001b[34m  실시간 감시모드를 시작합니다!!\u001b[0m ( 종료하려면 : Ctrl + C )")
     })
-    .on('all',(event,path) => {
+    .on('all',(_,path) => {
       check(path)
       console.log("\u001b[34m  실시간 감시모드 실행중 . . . . . . \u001b[0m( 종료하려면 : Ctrl + C )")
     })
