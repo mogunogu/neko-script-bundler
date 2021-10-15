@@ -6,7 +6,6 @@ const fs = require('fs');
 const { execFile } = require('child_process');
 const { program } = require('commander');
 
-
 program
   .option('-a, --auto-restart', '테스트플레이 자동재시작')
   .option('-w, --watch', '파일변경감시')
@@ -15,25 +14,33 @@ program.parse(process.argv);
 
 const options = program.opts();
 
+
+
 const build = () => {
-  if (!options.watch) {
-    console.log("-------------------------------------------------------------------------------------------")
+  const src_server = './src/ServerScripts/index.lua'
+  const src_client = './src/Scripts/index.lua'
+  const line = () => {
+    for (let i = 0; i < 106; i++){
+      process.stdout.write('─'); 
+    }
+    process.stdout.write('\n');
   }
-  if (fs.existsSync(path.resolve('./src/ServerScripts/index.lua'))) {
-    luabundle.toFile(path.resolve('./src/ServerScripts/index.lua'), path.resolve('./ServerScripts/___bundle.lua'));
+
+  line()
+  if (fs.existsSync(path.resolve(src_server))) {
+    luabundle.toFile(path.resolve(src_server), path.resolve('./ServerScripts/___bundle.lua'));
     console.log("\u001b[32m✔ \u001b[33m서버 스크립트 빌드완료. \u001b[0m");
   } else {
-    console.error('./src/Scripts/index.lua파일이 존재하지 않습니다!!!!');
+    console.error(`${src_server} 파일이 존재하지 않습니다!!!!`);
   }
   
-  if (fs.existsSync(path.resolve('./src/Scripts/index.lua'))) {
-    luabundle.toFile(path.resolve('./src/Scripts/index.lua'), path.resolve('./Scripts/___bundle.lua'));
+  if (fs.existsSync(path.resolve(src_client))) {
+    luabundle.toFile(path.resolve(src_client), path.resolve('./Scripts/___bundle.lua'));
     console.log("\u001b[32m✔ \u001b[34m클라이언트 스크립트 빌드완료. \u001b[0m");
-    
   } else {
-    console.error('./src/Scripts/index.lua파일이 존재하지 않습니다!!!!')
+    console.error(`${src_client} 파일이 존재하지 않습니다!!!!`)
   }
-  console.log("-------------------------------------------------------------------------------------------");
+  line()
   
   // -a command
   if (options.autoRestart) {
@@ -52,7 +59,7 @@ if (options.watch) {
     if (!changed.includes(path)) {
       changed.push(path)
     }
-    console.log("  현재까지 변경된 파일 : " + changed.length + " 개 ")
+    console.log(`  현재까지 변경된 파일 : ${changed.length} 개 `)
   }
   watcher
     .on('ready', () => {
@@ -66,17 +73,17 @@ if (options.watch) {
     .on('add', (path,stats) => {
       build();
       console.clear()
-      console.log("\u001b[32m✔ [Add] 파일변경을 감지했습니다 : " + path + "\u001b[0m" + " -" , stats.size , "byte" , date());
+      console.log(`\u001b[32m✔ [Add] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${ stats.size } byte` , date());
     })
     .on('change', ( path, stats ) => {
       build();
       console.clear()
-      console.log("\u001b[32m✔ [Chage] 파일변경을 감지했습니다 : "+ path +"\u001b[0m" + " -" , stats.size , "byte" , date());
+      console.log(`\u001b[32m✔ [Change] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${ stats.size } byte` , date());
     })
     .on('unlink', path => {
       build();
       console.clear()
-      console.log("\u001b[31m❌ 파일변경을 감지했습니다 : "+ path +"\u001b[0m"+ date());
+      console.log(`\u001b[31m❌ [Unlink] 파일변경을 감지했습니다 : ${path} \u001b[0m` , date());
     })
 }
 
