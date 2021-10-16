@@ -8,9 +8,11 @@
 neko-script-bundler는 이런 문제들을 해결합니다.
 
 ## 설치방법
+  step 1.
   ```js
   git clone https://github.com/mogunogu/neko-script-bundler.git
   ```
+  step 2.
   ```js
   npm install
   ```
