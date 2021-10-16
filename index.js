@@ -50,38 +50,38 @@ const build = () => {
 // -w command
 if (options.watch) {
   const watcher = chokidar.watch('./src/', { ignoreInitial: true });
-  const date = () => "(\u001b[35m " + new Date().toLocaleTimeString() + " \u001b[0m)"
+  const date = () => `[\u001b[35m${new Date().toLocaleTimeString()}\u001b[0m]`
   const changed = [];
   const check = (path) => {
     if (!changed.includes(path)) {
       changed.push(path)
     }
-    console.log(`  현재까지 변경된 파일 : ${changed.length} 개 `)
+    return changed.length
   }
 
   watcher
     .on('ready', () => {
       console.clear()
-      console.log("\u001b[34m  실시간 감시모드를 시작합니다!!\u001b[0m ( 종료하려면 : Ctrl + C )")
+      console.log(`${date()} \u001b[34m실시간 감시모드를 시작합니다. . . . . .\u001b[0m ( 종료하려면 : Ctrl + C )`)
     })
     .on('all', (_, path) => {
-      check(path)
-      console.log("\u001b[34m  실시간 감시모드 실행중 . . . . . . \u001b[0m( 종료하려면 : Ctrl + C )")
+      let changed = check(path)
+      console.log(`${date()} \u001b[34m현재까지 변경된 파일 : ${changed}개.\u001b[0m 실시간 감시모드 실행중 . . . . . . ( 종료하려면 : Ctrl + C )`)
     })
     .on('add', (path, stats) => {
       build();
       console.clear()
-      console.log(`\u001b[32m✔ [Add] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${stats.size} byte` , date());
+      console.log(`${date()} 파일변경을 감지했습니다 - \u001b[32mAdd\u001b[0m ${path} \u001b[0m - ${stats.size} byte`);
     })
     .on('change', (path, stats) => {
       build();
       console.clear()
-      console.log(`\u001b[32m✔ [Change] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${stats.size} byte` , date());
+      console.log(`${date()} 파일변경을 감지했습니다 - \u001b[34mChanged\u001b[0m ${path} - ${stats.size} byte`);
     })
     .on('unlink', path => {
       build();
       console.clear()
-      console.log(`\u001b[31m❌ [Unlink] 파일변경을 감지했습니다 : ${path} \u001b[0m` , date());
+      console.log(`${date()} 파일변경을 감지했습니다 - \u001b[31mUnlink\u001b[0m ${path} \u001b[0m`);
     })
 }
 
