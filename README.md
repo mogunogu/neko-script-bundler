@@ -10,6 +10,8 @@ neko-script-bundler는 이런 문제들을 해결합니다.
 ## 설치방법
   ```js
   git clone https://github.com/mogunogu/neko-script-bundler.git
+  ```
+  ```js
   npm install
   ```
 ## 사용방법
