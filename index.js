@@ -64,19 +64,19 @@ if (options.watch) {
       console.clear()
       console.log("\u001b[34m  실시간 감시모드를 시작합니다!!\u001b[0m ( 종료하려면 : Ctrl + C )")
     })
-    .on('all',(_,path) => {
+    .on('all', (_, path) => {
       check(path)
       console.log("\u001b[34m  실시간 감시모드 실행중 . . . . . . \u001b[0m( 종료하려면 : Ctrl + C )")
     })
-    .on('add', (path,stats) => {
+    .on('add', (path, stats) => {
       build();
       console.clear()
-      console.log(`\u001b[32m✔ [Add] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${ stats.size } byte` , date());
+      console.log(`\u001b[32m✔ [Add] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${stats.size} byte` , date());
     })
-    .on('change', ( path, stats ) => {
+    .on('change', (path, stats) => {
       build();
       console.clear()
-      console.log(`\u001b[32m✔ [Change] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${ stats.size } byte` , date());
+      console.log(`\u001b[32m✔ [Change] 파일변경을 감지했습니다 : ${path} \u001b[0m - ${stats.size} byte` , date());
     })
     .on('unlink', path => {
       build();
