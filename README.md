@@ -7,7 +7,7 @@
 
 neko-script-bundler는 이런 문제들을 해결합니다.
 
-## 설치 권장사항
+## 설치 요구사항
 
 - nodejs 런타임설치 (LTS 권장) 
 
