@@ -7,6 +7,12 @@
 
 neko-script-bundler는 이런 문제들을 해결합니다.
 
+## 설치 권장사항
+
+- nodejs 런타임설치 (LTS 권장) 
+
+https://nodejs.org/ja/download/
+
 ## 설치방법
   step 1.
   ```js
